@@ -1,0 +1,157 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        background: #f8f9fc;
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease-in-out;
+        background: white;
+    }
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        border: none;
+        border-radius: 30px;
+        padding: 10px 25px;
+        font-weight: 500;
+        transition: all 0.3s ease-in-out;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #224abe, #1e3a8a);
+        transform: translateY(-2px);
+    }
+    .btn-warning, .btn-danger {
+        border-radius: 20px;
+        padding: 6px 15px;
+    }
+
+    table {
+        border-radius: 12px;
+        overflow: hidden;
+    }
+    table thead {
+        background: linear-gradient(90deg, #4e73df, #224abe);
+        color: white;
+    }
+    table tbody tr:hover {
+        background-color: rgba(78, 115, 223, 0.05);
+    }
+
+    .page-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-bottom: 20px;
+        border-left: 6px solid #4e73df;
+        padding-left: 12px;
+    }
+
+    .alert {
+        border-radius: 8px;
+        font-weight: 500;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #224abe;
+    }
+</style>
+
+<div class="container my-5">
+    
+    <!-- Dynamic Page Title -->
+    <h2 class="page-title">{{ page_title }}</h2>
+
+    <!-- Display Messages -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Form Card -->
+    <div class="card p-4 mb-5">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Post Title</label>
+                <input type="text" name="title" class="form-control" value="{{ form.title.value|default:'' }}" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Category</label>
+                {{ form.category }}
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Content</label>
+                <textarea name="content" rows="5" class="form-control" required>{{ form.content.value|default:'' }}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Upload Image</label>
+                {{ form.category }}
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+                {% if edit_post %} ✏️ Update Post {% else %} ➕ Create Post {% endif %}
+            </button>
+        </form>
+    </div>
+
+    <hr>
+<h3 class="mt-4">
+    <a class="btn btn-outline-primary" data-bs-toggle="collapse" href="#allPosts" role="button" aria-expanded="false" aria-controls="allPosts">
+        Show All Posts ⬇
+    </a>
+</h3>
+
+<div class="collapse mt-3" id="allPosts">
+    <div class="card card-body">
+        <table class="table table-hover table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>Title</th>
+                    <th>Category</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in posts %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.category.name }}</td>
+                    <td>{{ post.created_at|date:"Y-m-d H:i" }}</td>
+                    <td>
+                        <a href="{% url 'blog1:update_post' post.id %}" class="btn btn-sm btn-warning">✏ Edit</a>
+                        <a href="{% url 'blog1:delete_post' post.id %}" class="btn btn-sm btn-danger" 
+                           onclick="return confirm('Are you sure you want to delete this post?');">🗑 Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No posts available.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+{% endblock %}

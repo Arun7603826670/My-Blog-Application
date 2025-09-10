@@ -1,0 +1,83 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<style>
+    .login-section {
+        background: linear-gradient(135deg, #0a0a0a, #001f3f);
+        min-height: 100vh; /* fill screen minus navbar/footer */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+    .login-card {
+        background: #fff;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        max-width: 400px;
+        width: 100%;
+    }
+    .login-card h2 {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    .form-control {
+        border-radius: 10px;
+    }
+    .btn-login {
+        background: linear-gradient(90deg, #6a11cb, #2575fc);
+        border: none;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 16px;
+        color: #fff;
+        transition: background 0.3s ease;
+    }
+    .btn-login:hover {
+        background: linear-gradient(90deg, #2575fc, #6a11cb);
+    }
+    .alert {
+        font-size: 14px;
+        border-radius: 10px;
+    }
+    .extra-links {
+        margin-top: 15px;
+        text-align: center;
+    }
+    .extra-links a {
+        text-decoration: none;
+        color: #2575fc;
+    }
+    .extra-links a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<section class="login-section">
+    <div class="login-card">
+        <h2>Login to Continue</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                {{ form.username.label_tag }}
+                {{ form.username }}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label_tag }}
+                {{ form.password }}
+            </div>
+            <button type="submit" class="btn btn-login w-100">Login</button>
+        </form>
+
+        {% if form.errors %}
+            <div class="alert alert-danger mt-3">
+                Invalid username or password. Please try again.
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,100 @@
+<style>
+  /* Navbar Styling */
+  .navbar {
+    background: linear-gradient(90deg, #0d0d0d, #1c1c1c);
+    padding: 0.7rem 1rem;
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #0dcaf0 !important;
+    letter-spacing: 0.5px;
+  }
+
+  /* Nav Links */
+  .nav-link {
+    color: #ddd !important;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 8px 12px;
+  }
+
+  /* Hover underline animation */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: #0dcaf0;
+    transition: width 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #0dcaf0 !important;
+  }
+
+  .nav-link:hover::after {
+    width: 100%;
+  }
+
+  .nav-link.active {
+    color: #0dcaf0 !important;
+    font-weight: 600;
+  }
+
+  /* Buttons */
+  .btn-subscribe, .btn-auth {
+    padding: 6px 18px;
+    border-radius: 50px;
+    border: 1px solid #0dcaf0;
+    color: #0dcaf0;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .btn-subscribe:hover, .btn-auth:hover {
+    background-color: #0dcaf0;
+    color: #fff;
+    transform: scale(1.05);
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+  <div class="container-fluid px-4">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">My Blogs</a>
+
+    <!-- Toggle button -->
+    <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+      aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav items -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-center gap-lg-3">
+
+        <!-- Auth Buttons -->
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <form method="post" action="{% url 'blog1:logout' %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-auth ms-lg-2">Logout</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-auth ms-lg-2" href="{% url 'blog1:login' %}">Login</a>
+          </li>
+        {% endif %}
+      </ul>
+      <li class="nav-item">
+          <a class="btn btn-subscribe ms-lg-2" href="{% url 'blog1:subscribe' %}">Subscribe</a>
+        </li>
+    </div>
+  </div>
+</nav>

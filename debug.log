@@ -1,0 +1,2 @@
+INFO 2025-07-06 20:09:10,758 django.utils.autoreload Watching for file changes with StatReloader
+INFO 2025-07-06 20:09:21,146 django.utils.autoreload D:\django\tutorial-env\myproject\myproject\settings.py changed, reloading.

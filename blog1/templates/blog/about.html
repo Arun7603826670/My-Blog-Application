@@ -1,0 +1,314 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* ================== GENERAL ================== */
+.section-padding { padding: 80px 0; } /* more breathing space */
+h3, h4, h5 { font-family: 'Poppins', sans-serif; } /* modern clean font */
+
+/* ================== ABOUT SECTION ================== */
+.about-section {
+  background: linear-gradient(135deg, #fffaf5, #ffffff);
+  padding: 80px 0;
+}
+
+.about-image {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+.about-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.about-image:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+}
+.about-image:hover img {
+  transform: scale(1.05);
+}
+
+.about-content h3 {
+  font-size: 2.3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #222;
+}
+.about-content h3::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: #ff6600;
+  margin-top: 10px;
+  border-radius: 3px;
+}
+.about-content p {
+  font-size: 1.15rem;
+  line-height: 1.9;
+  color: #444;
+  margin-bottom: 15px;
+}
+
+/* ================== INFO CARDS ================== */
+.info-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px 25px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+  transition: all 0.3s ease-in-out;
+}
+.info-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+.info-card i {
+  font-size: 45px;
+  color: #ff6600;
+  margin-bottom: 18px;
+}
+.info-card h5 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ================== TEAM CARDS ================== */
+.team-card {
+  background: #fff;
+  border-radius: 20px;
+  text-align: center;
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.team-card img {
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 4px solid #ff6600;
+  transition: transform 0.3s ease;
+}
+.team-card:hover img { transform: scale(1.08); }
+.team-card h5 {
+  font-size: 1.15rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+.team-card p {
+  font-size: 0.95rem;
+  color: #777;
+}
+
+/* ================== STATS ================== */
+.stats h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ff6600;
+}
+.stats p {
+  font-size: 1.1rem;
+  color: #444;
+  font-weight: 500;
+}
+
+/* ================== TESTIMONIALS ================== */
+.testimonial {
+  background: #fff;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  font-style: italic;
+  transition: transform 0.3s ease;
+}
+.testimonial:hover { transform: translateY(-8px); }
+
+.blockquote-footer {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #555;
+}
+
+/* ================== MAP ================== */
+.map-container {
+  width: 100%;
+  height: 450px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+/* ================== RESPONSIVE ================== */
+@media (max-width: 768px) {
+  .about-content h3 { font-size: 1.8rem; }
+  .about-content p { font-size: 1rem; }
+  .info-card { padding: 30px 20px; }
+  .team-card img { width: 100px; height: 100px; }
+}
+
+</style>
+
+<div class="about-section py-5">
+  <div class="container">
+
+    <!-- Row 1: Image Left, Text Right -->
+    <div class="row align-items-start">
+      <div class="col-md-5">
+        <div class="about-image">
+          <img src="{{ about_page.image.url }}" alt="About Image" class="img-fluid rounded shadow">
+        </div>
+      </div>
+      <div class="col-md-7 d-flex align-items-start">
+        <div class="about-content">
+          <h3>{{ about_page.title }}</h3>
+          <p>{{ about_page.content|linebreaks }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Full-width Extra Content -->
+    <div class="row mt-4">
+      <div class="col-12">
+        <div class="about-extra">
+          <p>✨ We aim to connect food lovers with their favorite restaurants, offering a seamless ordering experience and prompt delivery.</p>
+          <p>🌍 With a passionate team and strong partner network, we strive to bring the joy of fresh food closer to your doorstep every day.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 3: Mission Section -->
+    <div class="row text-center mt-5">
+      <div class="col-md-4">
+        <div class="mission-box p-3 border rounded shadow-sm">
+          <h4>✨ Inspire Curiosity</h4>
+          <p>Through diverse blog content — from tech tutorials to lifestyle hacks, we fuel learning and exploration.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mission-box p-3 border rounded shadow-sm">
+          <h4>🍽 Build Community</h4>
+          <p>A space where readers and food lovers can connect, share experiences, and discover new favorites.</p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="mission-box p-3 border rounded shadow-sm">
+          <h4>⚡ Deliver Convenience</h4>
+          <p>We blend knowledge and services that make modern life simpler, better, and more enjoyable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 4: Stats -->
+    <div class="row text-center mt-5">
+      <div class="col-md-3">
+        <h2>5K+</h2>
+        <p>Happy Readers</p>
+      </div>
+      <div class="col-md-3">
+        <h2>1K+</h2>
+        <p>Food Orders Delivered</p>
+      </div>
+      <div class="col-md-3">
+        <h2>300+</h2>
+        <p>Articles Published</p>
+      </div>
+      <div class="col-md-3">
+        <h2>50+</h2>
+        <p>Partner Restaurants</p>
+      </div>
+    </div>
+
+    <!-- Row 5: Testimonials Carousel -->
+    <div id="testimonialCarousel" class="carousel slide mt-5" data-bs-ride="carousel">
+      <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+          <p class="lead">"This blog always keeps me updated with the latest trends. I love the content!"</p>
+          <small>- Sarah L.</small>
+        </div>
+        <div class="carousel-item">
+          <p class="lead">"Ordering food has never been this easy and quick. Highly recommended!"</p>
+          <small>- James P.</small>
+        </div>
+        <div class="carousel-item">
+          <p class="lead">"The mix of blogs and food services is so unique. Truly a one-stop place!"</p>
+          <small>- Priya R.</small>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+
+    <!-- Row 6: Team Section -->
+    <div class="section-padding mt-5">
+      <div class="container">
+        <h3 class="text-center mb-5">Meet Our Team</h3>
+        <div class="row g-4">
+          <div class="col-md-3 col-6">
+            <div class="team-card text-center p-3 border rounded shadow-sm">
+              <img src="{% static 'images/team1.jpg' %}" alt="Team Member" class="img-fluid rounded-circle mb-3">
+              <h5>Arun Kumar</h5>
+              <p class="text-muted">Founder & CEO</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="team-card text-center p-3 border rounded shadow-sm">
+              <img src="{% static 'images/team2.jpg' %}" alt="Team Member" class="img-fluid rounded-circle mb-3">
+              <h5>Priya Sharma</h5>
+              <p class="text-muted">Operations Head</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="team-card text-center p-3 border rounded shadow-sm">
+              <img src="{% static 'images/team3.jpg' %}" alt="Team Member" class="img-fluid rounded-circle mb-3">
+              <h5>Rahul Verma</h5>
+              <p class="text-muted">Marketing Lead</p>
+            </div>
+          </div>
+          <div class="col-md-3 col-6">
+            <div class="team-card text-center p-3 border rounded shadow-sm">
+              <img src="{% static 'images/team4.jpg' %}" alt="Team Member" class="img-fluid rounded-circle mb-3">
+              <h5>Ananya Singh</h5>
+              <p class="text-muted">Customer Support</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 7: Google Map -->
+    <div class="section-padding bg-light mt-5">
+      <div class="container">
+        <h4 class="text-center mb-4">📍 Find Us Here</h4>
+        <div class="map-container rounded shadow-sm" style="overflow:hidden; position:relative; height:400px;">
+          <iframe 
+           
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

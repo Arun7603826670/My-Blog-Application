@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Subscribe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+          <h2 class="text-center mb-4 text-primary fw-bold">Subscribe to Our Newsletter</h2>
+          <p class="text-center text-muted mb-4">
+            Stay updated with the latest blog posts, events, and special offers delivered straight to your inbox.
+          </p>
+
+          <form method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" name="name" class="form-control" id="name" required placeholder="Enter your name">
+              <div class="invalid-feedback">Please enter your name.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input type="email" name="email" class="form-control" id="email" required placeholder="example@domain.com">
+              <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="consent" required>
+              <label class="form-check-label" for="consent">I agree to receive newsletters.</label>
+              <div class="invalid-feedback">You must agree before submitting.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2">Subscribe Now</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Bootstrap form validation
+  (() => {
+    'use strict';
+    const forms = document.querySelectorAll('.needs-validation');
+    Array.from(forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  })();
+</script>
+{% endblock %}

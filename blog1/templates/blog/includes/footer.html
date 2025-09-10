@@ -1,0 +1,32 @@
+<footer style="background-color:#111; color:#fff; padding:40px 20px;">
+  <div style="display:flex; flex-wrap:wrap; justify-content:space-between; max-width:1200px; margin:auto;">
+    <!-- About -->
+    <div style="flex:1; min-width:200px; margin:10px;">
+      <h3>My Blogs</h3>
+      <p>Your go-to destination for stories, insights, and inspiration.</p>
+    </div>
+    
+    <!-- Quick Links -->
+    <div style="flex:1; min-width:200px; margin:10px;">
+      <h3>Quick Links</h3>
+      <ul style="list-style:none; padding:0;">
+        <li><a href="/" style="color:#bbb;">Home</a></li>
+        <li><a href="{% url 'blog1:about'%}" style="color:#bbb;">About</a></li>
+        <li><a href="{% url 'blog1:contact'%}" style="color:#bbb;">Contact</a></li>
+        <li><a href="#" style="color:#bbb;">Privacy Policy</a></li>
+      </ul>
+    </div>
+
+    <!-- Newsletter -->
+    <div style="flex:1; min-width:200px; margin:10px;">
+      <h3>Subscribe</h3>
+      <form>
+        <input type="email" placeholder="Enter your email" style="padding:8px; width:80%; margin-bottom:10px;">
+        <button type="submit" style="padding:8px 15px; background:#00bcd4; border:none; color:#fff;">Subscribe</button>
+      </form>
+    </div>
+  </div>
+  
+  <hr style="border-color:#444;">
+  <p style="text-align:center; color:#888; font-size:14px;">© 2025 My Blogs. All rights reserved.</p>
+</footer>
